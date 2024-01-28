@@ -1,0 +1,29 @@
+{
+  "TheWitcherMod:TargetOfTheContract": {
+    "NAME": "Target of the Contract",
+    "DESCRIPTIONS": [
+      "Kill this enemy to gain #y",
+      " Gold and #y",
+      " Reputation.",
+      "Is a minion, you will gain nothing (and lose nothing)."
+    ]
+  },
+  "TheWitcherMod:RemoveDexterityPower": {
+    "NAME": "Remove Dexterity",
+    "DESCRIPTIONS": [
+      "At the end of your turn, lose #y",
+      "In #y",
+      " turns, lose #y",
+      " Dexterity."
+    ]
+  },
+  "TheWitcherMod:RemoveStrengthPower": {
+    "NAME": "Remove Strength",
+    "DESCRIPTIONS": [
+      "At the end of your turn, lose #y",
+      "In #y",
+      " turns, lose #y",
+      " Strength."
+    ]
+  }
+}

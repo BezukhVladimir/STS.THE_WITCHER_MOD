@@ -1,0 +1,52 @@
+{
+  "TheWitcherMod:QuenDischarge": {
+    "NAME": "Quen Discharge",
+    "DESCRIPTION": "Gain !M! Thorns."
+  },
+  "TheWitcherMod:CollectionOfTrophies": {
+    "NAME": "Collection of Trophies",
+    "DESCRIPTION": "Deal !D! damage. NL If the enemy is [thewitchermod:TargetOfTheContractIcon] , NL deal double damage. NL If Fatal, gain 1 Reputation."
+  },
+  "TheWitcherMod:ContractToKill": {
+    "NAME": "Contract to Kill",
+    "DESCRIPTION": "Apply !M! [thewitchermod:TargetOfTheContractIcon] . NL Exhaust."
+  },
+  "TheWitcherMod:DevilsPuffball": {
+    "NAME": "Devil's Puffball",
+    "DESCRIPTION": "thewitchermod:Bomb. NL Apply !M! Poison NL to ALL enemies."
+  },
+  "TheWitcherMod:DancingStar": {
+    "NAME": "Dancing Star",
+    "DESCRIPTION": "thewitchermod:Bomb. NL Deal !D! damage. NL Then deal !TheWitcherMod:MD! damage NL to ALL enemies."
+  },
+  "TheWitcherMod:Samum": {
+    "NAME": "Samum",
+    "DESCRIPTION": "thewitchermod:Bomb. NL Remove all Block NL from a enemy. NL Apply 2 Weak.",
+    "UPGRADE_DESCRIPTION": "thewitchermod:Bomb. NL Remove all Block NL from a enemy. NL Apply 2 Weak. NL Apply 1 Vulnerable."
+  },
+  "TheWitcherMod:MakingABomb": {
+    "NAME": "Making a Bomb",
+    "DESCRIPTION": "thewitchermod:Preparation. NL Add 1 random common NL a thewitchermod:Bomb card NL to your deck, then shuffle it into your draw pile.",
+    "UPGRADE_DESCRIPTION": "thewitchermod:Preparation. NL Add 1 random common NL upgraded a thewitchermod:Bomb card NL to your deck, then shuffle it into your draw pile."
+  },
+  "TheWitcherMod:ArmorUp": {
+    "NAME": "Armor Up",
+    "DESCRIPTION": "thewitchermod:Preparation. NL Gain 1 Dexterity NL for !M! turns."
+  },
+  "TheWitcherMod:Vigilance": {
+    "NAME": "Vigilance",
+    "DESCRIPTION": "thewitchermod:Preparation. NL Gain 1 Strength NL for !M! turns."
+  },
+  "TheWitcherMod:SweepingStrike": {
+    "NAME": "Sweeping Strike",
+    "DESCRIPTION": "Deal !D! damage. NL If the enemy NL doesn't have a Block, NL deal !M! more damage."
+  },
+  "TheWitcherMod:PrecisionStrike": {
+    "NAME": "Precision Strike",
+    "DESCRIPTION": "Deal !D! damage. NL If the enemy NL has a Block, NL deal !M! more damage."
+  },
+  "TheWitcherMod:Defend": {
+    "NAME": "Defend",
+    "DESCRIPTION": "Gain !B! Block."
+  }
+}

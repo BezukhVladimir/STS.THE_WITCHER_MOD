@@ -1,0 +1,13 @@
+{
+  "TheWitcherMod:TheWitcherCharacter": {
+    "NAMES": [
+      "The Witcher",
+      "the Witcher"
+    ],
+    "TEXT": [
+      "The Witcher is someone who has undergone extensive training, ruthless mental and physical conditioning, and mysterious rituals NL (which take place at \"witcher schools\" such as Kaer Morhen) in preparation for becoming an itinerant monster slayer for hire.",
+      "NL You TOUCH the heart.",
+      "Navigating an unlit street, you come across several hooded figures in the midst of some dark ritual. As you approach, they turn to you in eerie unison. The tallest among them bares fanged teeth and extends a long, pale hand towards you. NL ~\"Join~ ~us~ ~basic~ ~one,~ ~and~ ~feel~ ~the~ ~warmth~ ~of~ ~the~ ~Spire.\"~"
+    ]
+  }
+}

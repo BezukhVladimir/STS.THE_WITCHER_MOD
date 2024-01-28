@@ -1,0 +1,11 @@
+{
+  "TheWitcherMod:CampfireRelic": {
+    "NAME": "Campfire",
+    "FLAVOR": "Only myths and fables do not know the limits of possibility.",
+    "DESCRIPTIONS": [
+      "During the #yPreparation #yPhase, you can use #y1 more card.",
+      " NL NL Current Reputation: #y",
+      " "
+    ]
+  }
+}

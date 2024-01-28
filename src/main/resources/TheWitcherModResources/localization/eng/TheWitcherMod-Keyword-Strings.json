@@ -1,0 +1,26 @@
+[
+  {
+    "PROPER_NAME": "Preparation",
+    "NAMES": [
+      "preparation"
+    ],
+    "DESCRIPTION": "The Preparation card can't be played in combat. A Preparation card may only be used at the beginning of each combat in the Preparation Phase."
+  },
+  {
+    "PROPER_NAME": "Bomb",
+    "NAMES": [
+      "bomb"
+    ],
+    "DESCRIPTION": "Once used, the Bomb card is removed from combat and your deck."
+  },
+  {
+    "PROPER_NAME": "Target of the Contract [thewitchermod:TargetOfTheContractIcon]",
+    "NAMES": [
+      "target of the contract",
+      "target_of_the_contract",
+      "Target_of_the_Contract",
+      "[thewitchermod:TargetOfTheContract]"
+    ],
+    "DESCRIPTION": "Kill the Target of the Contract. NL NL Gain #y1 Gold for every #y10 Max HP of the enemy. NL NL Gain #y1 Gold for every #y10 of your Reputation. NL NL Gain #y1 / #y3 / #y5 Reputation for #yNormal / #yElite / #yBoss respectively. NL NL If the enemy that became the Target of the Contract was not killed (example, Target of the Contract has ended or negated by an Artifact or Life Link, you or the enemy has escaped from the combat), you lose #r3 Reputation. NL NL If the enemy that became the Target of the Contract is a minion, you will gain nothing (and lose nothing)."
+  }
+]
