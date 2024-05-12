@@ -37,7 +37,7 @@ public class TheWitcher extends CustomPlayer {
     public static final int STARTING_GOLD = 99;
     public static final int CARD_DRAW = 5;
     public static final int ORB_SLOTS = 0;
-    public static final int ASCENSION_MAX_HP_LOSS = 5;
+    public static final int ASCENSION_MAX_HP_LOSS = 7;
     private static final Logger LOGGER = LogManager.getLogger(TheWitcherModMain.class.getName());
 
     private static final String[] ORB_TEXTURES = {

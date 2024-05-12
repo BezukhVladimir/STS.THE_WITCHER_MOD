@@ -1,4 +1,8 @@
 {
+  "TheWitcherMod:Roach": {
+    "NAME": "Roach",
+    "DESCRIPTION": "{@@}Whenever you draw NL this card, draw !M! card{!M!|>1=s}. NL Draw !TheWitcherMod:SM! card{!TheWitcherMod:SM!|>1=s}."
+  },
   "TheWitcherMod:QuenDischarge": {
     "NAME": "Quen Discharge",
     "DESCRIPTION": "Gain !M! Thorns."

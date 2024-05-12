@@ -2,11 +2,11 @@ package TheWitcherMod.cards;
 
 import TheWitcherMod.TheWitcherModMain;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.cards.tempCards.Omega;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.ThornsPower;
+
 import static TheWitcherMod.TheWitcherModMain.makeCardPath;
 
 public class QuenDischarge extends AbstractDefaultCard {

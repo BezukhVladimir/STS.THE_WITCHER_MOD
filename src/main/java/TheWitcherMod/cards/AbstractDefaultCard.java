@@ -18,6 +18,11 @@ import static com.megacrit.cardcrawl.core.CardCrawlGame.languagePack;
 public abstract class AbstractDefaultCard extends CustomCard {
     private static final float PADDING = 25.0F;
 
+    public int secondMagicNumber;
+    public int baseSecondMagicNumber;
+    public boolean upgradedSecondMagicNumber;
+    public boolean isSecondMagicNumberModified;
+
     public int extraMultiDamage;
     public int baseExtraMultiDamage;
     public boolean upgradedExtraMultiDamage;
@@ -47,16 +52,29 @@ public abstract class AbstractDefaultCard extends CustomCard {
         isDamageModified = false;
         isBlockModified = false;
         isMagicNumberModified = false;
+
+        isSecondMagicNumberModified = false;
         isExtraMultiDamageModified = false;
     }
 
     public void displayUpgrades() {
         super.displayUpgrades();
 
+        if (upgradedSecondMagicNumber) {
+            secondMagicNumber = baseSecondMagicNumber;
+            isSecondMagicNumberModified = true;
+        }
+
         if (upgradedExtraMultiDamage) {
             extraMultiDamage = baseExtraMultiDamage;
             isExtraMultiDamageModified = true;
         }
+    }
+
+    public void upgradeSecondMagicNumber(int amount) {
+        baseSecondMagicNumber += amount;
+        secondMagicNumber = baseSecondMagicNumber;
+        upgradedSecondMagicNumber = true;
     }
 
     public void upgradeExtraMultiDamage(int amount) {

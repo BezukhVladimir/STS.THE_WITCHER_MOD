@@ -2,15 +2,9 @@ package TheWitcherMod.cards;
 
 import TheWitcherMod.TheWitcherModMain;
 import TheWitcherMod.actions.CollectionOfTrophiesAction;
-import TheWitcherMod.patches.reputation.ReputationManager;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.unique.GreedAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.colorless.HandOfGreed;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 
 import static TheWitcherMod.TheWitcherModMain.makeCardPath;
 
@@ -45,10 +39,6 @@ public class CollectionOfTrophies extends AbstractDefaultCard {
         this.addToBot(new CollectionOfTrophiesAction(
             m, damageInfo
         ));
-    }
-
-    public static boolean isFatal(AbstractMonster m) {
-        return (m.isDying || m.currentHealth <= 0) && !m.halfDead && !m.hasPower("Minion");
     }
 
     @Override
