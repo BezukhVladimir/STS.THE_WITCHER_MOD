@@ -17,10 +17,10 @@ public final class FightingStyleFast extends AbstractDefaultCard {
     private static final CardType TYPE = CardType.ATTACK;
 
     private static final int COST = -1; // X
-    private static final int START_DAMAGE = 1;
-    private static final int BONUS_FOR_EACH_DAMAGE_ACTION = 2;
-    private static final int UPGRADE_START_DAMAGE = 2;
-    private static final int UPGRADE_BONUS_FOR_EACH_DAMAGE_ACTION = 1;
+    private static final int START_DAMAGE = 2;
+    private static final int BONUS_FOR_EACH_DAMAGE_ACTION = 3;
+    private static final int UPGRADE_START_DAMAGE = 1;
+    private static final int UPGRADE_BONUS_FOR_EACH_DAMAGE_ACTION = 2;
 
     public FightingStyleFast() {
         super(ID, IMG, COST, TYPE, RARITY, TARGET);

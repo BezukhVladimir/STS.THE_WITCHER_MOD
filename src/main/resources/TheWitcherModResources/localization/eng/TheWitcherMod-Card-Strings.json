@@ -3,6 +3,10 @@
     "NAME": "Roach",
     "DESCRIPTION": "{@@}Whenever you draw NL this card, draw !M! card{!M!|>1=s}. NL Draw !TheWitcherMod:SM! card{!TheWitcherMod:SM!|>1=s}."
   },
+  "TheWitcherMod:FightingStyleStrong": {
+    "NAME": "Fighting Style: Strong",
+    "DESCRIPTION": "Deal !D!X damage. NL If the enemy has Block, NL deal double damage."
+  },
   "TheWitcherMod:FightingStyleFast": {
     "NAME": "Fighting Style: Fast",
     "DESCRIPTION": "Deal !D! damage. NL Increase damage by !M! for this action. NL Repeat X times."
@@ -29,7 +33,7 @@
   },
   "TheWitcherMod:Samum": {
     "NAME": "Samum",
-    "DESCRIPTION": "thewitchermod:Bomb. NL Remove all Block NL from a enemy. NL Apply 2 Weak.",
+    "DESCRIPTION": "thewitchermod:Bomb. NL Remove all Block NL from an enemy. NL Apply 2 Weak.",
     "UPGRADE_DESCRIPTION": "thewitchermod:Bomb. NL Remove all Block NL from a enemy. NL Apply 2 Weak. NL Apply 1 Vulnerable."
   },
   "TheWitcherMod:MakingABomb": {
@@ -47,11 +51,11 @@
   },
   "TheWitcherMod:SweepingStrike": {
     "NAME": "Sweeping Strike",
-    "DESCRIPTION": "Deal !D! damage. NL If the enemy NL doesn't have a Block, NL deal !M! more damage."
+    "DESCRIPTION": "Deal !D! damage. NL If the enemy NL doesn't have Block, NL deal !M! more damage."
   },
   "TheWitcherMod:PrecisionStrike": {
     "NAME": "Precision Strike",
-    "DESCRIPTION": "Deal !D! damage. NL If the enemy NL has a Block, NL deal !M! more damage."
+    "DESCRIPTION": "Deal !D! damage. NL If the enemy NL has Block, NL deal !M! more damage."
   },
   "TheWitcherMod:Defend": {
     "NAME": "Defend",
