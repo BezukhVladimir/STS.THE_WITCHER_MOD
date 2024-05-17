@@ -3,6 +3,10 @@
     "NAME": "Roach",
     "DESCRIPTION": "{@@}Whenever you draw NL this card, draw !M! card{!M!|>1=s}. NL Draw !TheWitcherMod:SM! card{!TheWitcherMod:SM!|>1=s}."
   },
+  "TheWitcherMod:FightingStyleGroup": {
+    "NAME": "Fighting Style: Group",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies X times. NL Deal !M! more damage NL for each enemy."
+  },
   "TheWitcherMod:FightingStyleStrong": {
     "NAME": "Fighting Style: Strong",
     "DESCRIPTION": "Deal !D!X damage. NL If the enemy has Block, NL deal double damage."

@@ -26,9 +26,9 @@ public final class DancingStar extends AbstractDefaultCard implements SpawnModif
     private static final CardType TYPE = CardType.ATTACK;
 
     private static final int COST = 1;
-    private static final int DAMAGE = 6;
-    private static final int EXTRA_MULTI_DAMAGE = 1;
-    private static final int UPGRADE_PLUS_DAMAGE = 2;
+    private static final int DAMAGE = 9;
+    private static final int EXTRA_MULTI_DAMAGE = 3;
+    private static final int UPGRADE_PLUS_DAMAGE = 3;
     private static final int UPGRADE_PLUS_EXTRA_MULTI_DAMAGE = 1;
 
     public DancingStar() {
