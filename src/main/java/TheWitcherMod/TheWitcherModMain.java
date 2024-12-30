@@ -3,9 +3,13 @@ package TheWitcherMod;
 import TheWitcherMod.cards.AbstractDefaultCard;
 import TheWitcherMod.characters.TheWitcher;
 import TheWitcherMod.icons.TargetOfTheContractIcon;
+import TheWitcherMod.patches.intoxication.IntoxicationManager;
+import TheWitcherMod.patches.intoxicationMax.IntoxicationMaxManager;
+import TheWitcherMod.patches.intoxicationPerTurn.IntoxicationPerTurnChanger;
+import TheWitcherMod.patches.intoxicationPerTurn.IntoxicationPerTurnManager;
 import TheWitcherMod.patches.numberOfAvailablePreparationCards.NumberOfAvailablePreparationCardsManager;
 import TheWitcherMod.patches.reputation.ReputationManager;
-import TheWitcherMod.relics.CampfireRelic;
+import TheWitcherMod.relics.WolfSchoolMedallionRelic;
 import TheWitcherMod.utils.IDCheckDontTouchPls;
 import TheWitcherMod.utils.TextureLoader;
 import TheWitcherMod.variables.ExtraMultiDamage;
@@ -26,7 +30,9 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -52,20 +58,22 @@ import static TheWitcherMod.powers.TargetOfTheContract.*;
 
 @SpireInitializer
 public class TheWitcherModMain implements
-    EditCardsSubscriber,
-    EditRelicsSubscriber,
     EditStringsSubscriber,
     EditKeywordsSubscriber,
+    EditCardsSubscriber,
+    EditRelicsSubscriber,
     EditCharactersSubscriber,
     PostInitializeSubscriber,
+    PostDungeonInitializeSubscriber,
     OnStartBattleSubscriber,
     OnPlayerTurnStartSubscriber,
     PostBattleSubscriber,
     PostPowerApplySubscriber,
     OnPowersModifiedSubscriber,
     PostDungeonUpdateSubscriber,
-    PostPotionUseSubscriber {
-    public static final int THE_CONTRACT_FAIL_LOSE_REP = 5;
+    PostPotionUseSubscriber,
+    MaxHPChangeSubscriber {
+    public static final int THE_CONTRACT_FAIL_LOSE_REP = -5;
     private static final Logger LOGGER = LogManager.getLogger(TheWitcherModMain.class.getName());
     public static final String ENABLE_PLACEHOLDER_SETTINGS = "enablePlaceholder";
     public static final Color THE_WITCHER_COLOR = CardHelper.getColor(64.0f, 70.0f, 70.0f);
@@ -94,14 +102,17 @@ public class TheWitcherModMain implements
     public static AbstractCard.CardTags THE_PREPARATION_CARD;
     @SpireEnum
     public static AbstractCard.CardTags THE_WITCHER_BOMB_CARD;
+    @SpireEnum
+    public static AbstractCard.CardTags THE_WITCHER_POTION_CARD;
     public static Properties theWitcherModDefaultSettings = new Properties();
     public static Properties reputationBackup = new Properties();
+    public static Properties intoxicationBackup = new Properties();
+    public static Properties intoxicationMaxBackup = new Properties();
+    public static Properties intoxicationPerTurnBackup = new Properties();
     public static Properties numberOfAvailablePreparationCardsBackup = new Properties();
     public static boolean enablePlaceholder = true;
     private static String modID;
-    // PREPARATION PHASE
     private final ArrayList<AbstractCard> preparationCards = new ArrayList<>();
-    // CONTRACT SYSTEM
     private final ArrayList<AbstractMonster> targetOfTheContractMonsters = new ArrayList<>();
     private boolean isPrepared = false;
 
@@ -229,84 +240,6 @@ public class TheWitcherModMain implements
     }
 
     @Override
-    public void receiveEditCharacters() {
-        LOGGER.info("Beginning to edit characters. " + "Add " + TheWitcher.Enums.THE_WITCHER.toString());
-
-        BaseMod.addCharacter(new TheWitcher("the Witcher", TheWitcher.Enums.THE_WITCHER),
-            THE_WITCHER_BUTTON, THE_WITCHER_PORTRAIT, TheWitcher.Enums.THE_WITCHER);
-
-        receiveEditPotions();
-
-        LOGGER.info("Added " + TheWitcher.Enums.THE_WITCHER.toString());
-    }
-
-    @Override
-    public void receivePostInitialize() {
-        LOGGER.info("Loading badge image and mod options");
-
-        Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE_THE_WITCHER_MOD);
-
-        ModPanel settingsPanel = new ModPanel();
-
-        ModLabeledToggleButton enableNormalsButton = new ModLabeledToggleButton("This is the text which goes next to the checkbox.",
-            350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
-            enablePlaceholder,
-            settingsPanel,
-            (label) -> {
-            },
-            (button) -> {
-                enablePlaceholder = button.enabled;
-                try {
-                    SpireConfig config = new SpireConfig("theWitcherMod", "theWitcherModConfig", theWitcherModDefaultSettings);
-                    config.setBool(ENABLE_PLACEHOLDER_SETTINGS, enablePlaceholder);
-                    config.save();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-
-        settingsPanel.addUIElement(enableNormalsButton);
-
-        BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
-
-        LOGGER.info("Done loading badge Image and mod options");
-    }
-
-    public void receiveEditPotions() {
-        LOGGER.info("Beginning to edit potions");
-
-        LOGGER.info("Done editing potions");
-    }
-
-    @Override
-    public void receiveEditRelics() {
-        LOGGER.info("Adding relics");
-
-        BaseMod.addRelicToCustomPool(new CampfireRelic(), TheWitcher.Enums.COLOR_GRAY);
-
-        LOGGER.info("Done adding relics!");
-    }
-
-    @Override
-    public void receiveEditCards() {
-        CustomIconHelper.addCustomIcon(TargetOfTheContractIcon.get());
-
-        pathCheck();
-
-        BaseMod.addDynamicVariable(new ExtraMultiDamage());
-        BaseMod.addDynamicVariable(new SecondMagicNumber());
-
-        LOGGER.info("Adding cards");
-
-        new AutoAdd("TheWitcherMod")
-            .packageFilter(AbstractDefaultCard.class)
-            .setDefaultSeen(true)
-            .cards();
-
-        LOGGER.info("Done adding cards!");
-    }
-
-    @Override
     public void receiveEditStrings() {
         LOGGER.info("You seeing this?");
         LOGGER.info("Beginning to edit strings for mod with ID: " + getModID());
@@ -346,11 +279,105 @@ public class TheWitcherModMain implements
                 BaseMod.addKeyword(getModID().toLowerCase(), keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
             }
         }
+
+        LOGGER.info("Done editing keywords");
+    }
+
+    @Override
+    public void receiveEditCards() {
+        CustomIconHelper.addCustomIcon(TargetOfTheContractIcon.get());
+
+        pathCheck();
+
+        BaseMod.addDynamicVariable(new ExtraMultiDamage());
+        BaseMod.addDynamicVariable(new SecondMagicNumber());
+
+        LOGGER.info("Adding cards");
+
+        new AutoAdd("TheWitcherMod")
+            .packageFilter(AbstractDefaultCard.class)
+            .setDefaultSeen(true)
+            .cards();
+
+        LOGGER.info("Done adding cards!");
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        LOGGER.info("Adding relics");
+
+        BaseMod.addRelicToCustomPool(new WolfSchoolMedallionRelic(), TheWitcher.Enums.COLOR_GRAY);
+
+        LOGGER.info("Done adding relics!");
+    }
+
+    @Override
+    public void receiveEditCharacters() {
+        LOGGER.info("Beginning to edit characters. " + "Add " + TheWitcher.Enums.THE_WITCHER.toString());
+
+        BaseMod.addCharacter(new TheWitcher("the Witcher", TheWitcher.Enums.THE_WITCHER),
+            THE_WITCHER_BUTTON, THE_WITCHER_PORTRAIT, TheWitcher.Enums.THE_WITCHER);
+
+        LOGGER.info("Added " + TheWitcher.Enums.THE_WITCHER.toString());
+    }
+
+    @Override
+    public void receivePostInitialize() {
+        LOGGER.info("Loading badge image and mod options");
+
+        Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE_THE_WITCHER_MOD);
+
+        ModPanel settingsPanel = new ModPanel();
+
+        ModLabeledToggleButton enableNormalsButton = new ModLabeledToggleButton("This is the text which goes next to the checkbox.",
+            350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+            enablePlaceholder,
+            settingsPanel,
+            (label) -> {
+            },
+            (button) -> {
+                enablePlaceholder = button.enabled;
+                try {
+                    SpireConfig config = new SpireConfig("theWitcherMod", "theWitcherModConfig", theWitcherModDefaultSettings);
+                    config.setBool(ENABLE_PLACEHOLDER_SETTINGS, enablePlaceholder);
+                    config.save();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+        settingsPanel.addUIElement(enableNormalsButton);
+
+        BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
+
+        LOGGER.info("Done loading badge Image and mod options");
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        AbstractPlayer p = AbstractDungeon.player;
+
+        contractSystemReceivePostDungeonInitialize(p);
+        intoxicationSystemReceivePostDungeonInitialize(p);
+    }
+
+    private static void contractSystemReceivePostDungeonInitialize(AbstractPlayer p) {
+        ReputationManager.reset(p);
+    }
+
+    private static void intoxicationSystemReceivePostDungeonInitialize(AbstractPlayer p) {
+        IntoxicationManager.reset(p);
+        IntoxicationMaxManager.reset(p);
+        IntoxicationPerTurnManager.reset(p);
     }
 
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
-        // PREPARATION PHASE
+        preparationPhaseReceiveOnBattleStart();
+        contractSystemReceiveOnBattleStart();
+    }
+
+    private void preparationPhaseReceiveOnBattleStart() {
         isPrepared = false;
         preparationCards.clear();
 
@@ -360,14 +387,19 @@ public class TheWitcherModMain implements
                 AbstractDungeon.player.drawPile.removeCard(card.cardID);
             }
         }
+    }
 
-        // CONTRACT SYSTEM
+    private void contractSystemReceiveOnBattleStart() {
         targetOfTheContractMonsters.clear();
     }
 
     @Override
     public void receiveOnPlayerTurnStart() {
-        // PREPARATION PHASE
+        preparationPhaseReceiveOnPlayerTurnStart();
+        intoxicationSystemReceiveOnPlayerTurnStart();
+    }
+
+    private void preparationPhaseReceiveOnPlayerTurnStart() {
         if (!isPrepared) {
             SelectCardsAction preparation = new SelectCardsAction(
                 preparationCards, NumberOfAvailablePreparationCardsManager.get(AbstractDungeon.player), getPreparationPhaseText(), true, card -> card.hasTag(THE_PREPARATION_CARD),
@@ -384,15 +416,48 @@ public class TheWitcherModMain implements
         }
     }
 
+    private void intoxicationSystemReceiveOnPlayerTurnStart() {
+        AbstractPlayer p = AbstractDungeon.player;
+
+        intoxicationSystemLoseHP(p);
+        intoxicationSystemChangeIntoxication(p);
+    }
+
+    private static void intoxicationSystemLoseHP(AbstractPlayer p) {
+        int intoxication = IntoxicationManager.get(p);
+        int intoxicationDamage = Math.max(
+            intoxication - IntoxicationMaxManager.get(p), 0
+        );
+
+        if (intoxicationDamage > 0) {
+            AbstractDungeon.actionManager.addToTop(
+                new LoseHPAction(p, p, intoxicationDamage)
+            );
+        }
+    }
+
+    private static void intoxicationSystemChangeIntoxication(AbstractPlayer p) {
+        IntoxicationManager.changeValue(
+            p,
+            IntoxicationPerTurnManager.get(p)
+        );
+    }
+
     @Override
     public void receivePostBattle(AbstractRoom room) {
-        // PREPARATION PHASE
+        preparationPhaseReceivePostBattle();
+    }
+
+    private void preparationPhaseReceivePostBattle() {
         isPrepared = false;
     }
 
     @Override
     public void receivePostPowerApplySubscriber(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-        // CONTRACT SYSTEM
+        contractSystemReceivePostPowerApplySubscriber(power, target);
+    }
+
+    private void contractSystemReceivePostPowerApplySubscriber(AbstractPower power, AbstractCreature target) {
         if (AbstractDungeon.isPlayerInDungeon() && AbstractDungeon.getCurrRoom() != null) {
             if (Objects.equals(power.ID, "TheWitcherMod:TargetOfTheContract")) {
                 if (!targetOfTheContractMonsters.contains((AbstractMonster) target)) {
@@ -404,7 +469,10 @@ public class TheWitcherModMain implements
 
     @Override
     public void receivePowersModified() {
-        // CONTRACT SYSTEM
+        contractSystemReceivePowersModified();
+    }
+
+    private void contractSystemReceivePowersModified() {
         if (AbstractDungeon.isPlayerInDungeon() && AbstractDungeon.getCurrRoom() != null && !targetOfTheContractMonsters.isEmpty()) {
             ArrayList<Integer> ids = new ArrayList<>();
 
@@ -416,7 +484,7 @@ public class TheWitcherModMain implements
 
             for (int id : ids) {
                 if (!isMinion(targetOfTheContractMonsters.get(id))) {
-                    ReputationManager.minus(AbstractDungeon.player, THE_CONTRACT_FAIL_LOSE_REP);
+                    ReputationManager.changeValue(AbstractDungeon.player, THE_CONTRACT_FAIL_LOSE_REP);
                 }
 
                 targetOfTheContractMonsters.remove(id);
@@ -424,10 +492,12 @@ public class TheWitcherModMain implements
         }
     }
 
-
     @Override
     public void receivePostDungeonUpdate() {
-        // CONTRACT SYSTEM
+        contractSystemReceivePostDungeonUpdate();
+    }
+
+    private void contractSystemReceivePostDungeonUpdate() {
         if (AbstractDungeon.isPlayerInDungeon() && AbstractDungeon.getCurrRoom() != null && !targetOfTheContractMonsters.isEmpty()) {
             ArrayList<Integer> ids = new ArrayList<>();
 
@@ -441,7 +511,7 @@ public class TheWitcherModMain implements
                 gainGoldReward(id);
 
                 if (!isMinion(targetOfTheContractMonsters.get(id))) {
-                    ReputationManager.plus(AbstractDungeon.player, getRepBonus(targetOfTheContractMonsters.get(id)));
+                    ReputationManager.changeValue(AbstractDungeon.player, getRepBonus(targetOfTheContractMonsters.get(id)));
                 }
 
                 targetOfTheContractMonsters.remove(id);
@@ -460,7 +530,7 @@ public class TheWitcherModMain implements
             }
 
             for (int id : ids) {
-                ReputationManager.minus(AbstractDungeon.player, THE_CONTRACT_FAIL_LOSE_REP);
+                ReputationManager.changeValue(AbstractDungeon.player, THE_CONTRACT_FAIL_LOSE_REP);
                 targetOfTheContractMonsters.remove(id);
             }
         }
@@ -482,14 +552,24 @@ public class TheWitcherModMain implements
 
     @Override
     public void receivePostPotionUse(AbstractPotion potion) {
+        contractSystemReceivePostPotionUse(potion);
+    }
+
+    private void contractSystemReceivePostPotionUse(AbstractPotion potion) {
         if (Objects.equals(potion.ID, "SmokeBomb") && AbstractDungeon.player.isEscaping) {
             for (AbstractMonster monster : targetOfTheContractMonsters) {
                 if (!isMinion(monster)) {
-                    ReputationManager.minus(AbstractDungeon.player, THE_CONTRACT_FAIL_LOSE_REP);
+                    ReputationManager.changeValue(AbstractDungeon.player, THE_CONTRACT_FAIL_LOSE_REP);
                 }
             }
 
             targetOfTheContractMonsters.clear();
         }
+    }
+
+    @Override
+    public int receiveMaxHPChange(int amount) {
+        IntoxicationMaxManager.reset(AbstractDungeon.player, amount);
+        return amount;
     }
 }

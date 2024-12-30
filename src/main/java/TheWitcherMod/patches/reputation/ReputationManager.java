@@ -15,11 +15,23 @@ public final class ReputationManager {
     }
 
     public static void reset(AbstractPlayer p) {
-        Var.reputation.set(p, 0);
+        Var.reputation.set(p, AbstractDungeon.ascensionLevel);
+        p.getRelic("TheWitcherMod:WolfSchoolMedallionRelic").updateDescription(p.chosenClass);
     }
 
     public static int get(AbstractPlayer p) {
         return Var.reputation.get(p);
+    }
+
+    public static String getString(AbstractPlayer p) {
+        int reputation = Var.reputation.get(p);
+        if (reputation > 0) {
+            return "#b" + reputation;
+        } else if (reputation < 0) {
+            return "#r" + reputation;
+        } else {
+            return "#y" + reputation;
+        }
     }
 
     public static int getPositive(AbstractPlayer p) {
@@ -28,14 +40,22 @@ public final class ReputationManager {
         return Math.max(value, 0);
     }
 
-    public static void plus(AbstractPlayer p, int value) {
-        Var.reputation.set(p, Math.min(get(p) + value, 100));
-        AbstractDungeon.player.getRelic("TheWitcherMod:CampfireRelic").updateDescription(AbstractDungeon.player.chosenClass);
+    public static void changeValue(AbstractPlayer p, int value) {
+        if (value >= 0) {
+            plus(p, value);
+        } else {
+            minus(p, -value);
+        }
+
+        p.getRelic("TheWitcherMod:WolfSchoolMedallionRelic").updateDescription(p.chosenClass);
     }
 
-    public static void minus(AbstractPlayer p, int value) {
+    private static void plus(AbstractPlayer p, int value) {
+        Var.reputation.set(p, Math.min(get(p) + value, 100));
+    }
+
+    private static void minus(AbstractPlayer p, int value) {
         Var.reputation.set(p, Math.max(get(p) - value, -100));
-        AbstractDungeon.player.getRelic("TheWitcherMod:CampfireRelic").updateDescription(AbstractDungeon.player.chosenClass);
     }
 
     private static void save(AbstractPlayer p) {

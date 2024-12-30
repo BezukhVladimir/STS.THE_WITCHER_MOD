@@ -26,11 +26,19 @@ public final class NumberOfAvailablePreparationCardsManager {
         return Var.numberOfAvailablePreparationCards.get(p);
     }
 
-    public static void plus(AbstractPlayer p, int value) {
+    public static void changeValue(AbstractPlayer p, int value) {
+        if (value >= 0) {
+            plus(p, value);
+        } else {
+            minus(p, -value);
+        }
+    }
+
+    private static void plus(AbstractPlayer p, int value) {
         Var.numberOfAvailablePreparationCards.set(p, get(p) + value);
     }
 
-    public static void minus(AbstractPlayer p, int value) {
+    private static void minus(AbstractPlayer p, int value) {
         Var.numberOfAvailablePreparationCards.set(p, get(p) - value);
     }
 

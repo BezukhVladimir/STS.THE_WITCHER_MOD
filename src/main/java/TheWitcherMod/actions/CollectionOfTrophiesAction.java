@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 public class CollectionOfTrophiesAction extends AbstractGameAction {
     private final DamageInfo info;
     private static final float DURATION = 0.1F;
+    public static final int REPUTATION_BONUS = 1;
 
     public CollectionOfTrophiesAction(final AbstractCreature target, final DamageInfo damageInfo) {
         info = damageInfo;
@@ -25,7 +26,7 @@ public class CollectionOfTrophiesAction extends AbstractGameAction {
             target.damage(info);
 
             if (isFatal(target)) {
-                ReputationManager.plus(AbstractDungeon.player, 1);
+                ReputationManager.changeValue(AbstractDungeon.player, REPUTATION_BONUS);
             }
 
             if (AbstractDungeon.getCurrRoom().monsters.areMonstersBasicallyDead()) {
