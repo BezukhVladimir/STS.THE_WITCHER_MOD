@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.ThornsPower;
+import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 
 import static TheWitcherMod.TheWitcherModMain.makeCardPath;
 
@@ -18,12 +18,13 @@ public class QuenDischarge extends AbstractDefaultCard {
     private static final CardType TYPE = CardType.POWER;
 
     private static final int COST = 1;
-    private static final int THORNS_POWER_BONUS = 3;
-    private static final int UPGRADE_PLUS_THORNS_POWER = 1;
+    private static final int PLATED_ARMOR_POWER_BONUS = 4;
+    private static final int UPGRADE_PLUS_PLATED_ARMOR_POWER = 2;
+
 
     public QuenDischarge() {
         super(ID, IMG, COST, TYPE, RARITY, TARGET);
-        magicNumber = baseMagicNumber = THORNS_POWER_BONUS;
+        magicNumber = baseMagicNumber = PLATED_ARMOR_POWER_BONUS;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class QuenDischarge extends AbstractDefaultCard {
         addToBot(new ApplyPowerAction(
             AbstractDungeon.player,
             AbstractDungeon.player,
-            new ThornsPower(AbstractDungeon.player, magicNumber),
+            new PlatedArmorPower(AbstractDungeon.player, magicNumber),
             magicNumber
         ));
     }
@@ -40,7 +41,7 @@ public class QuenDischarge extends AbstractDefaultCard {
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-            upgradeMagicNumber(UPGRADE_PLUS_THORNS_POWER);
+            upgradeMagicNumber(UPGRADE_PLUS_PLATED_ARMOR_POWER);
             initializeDescription();
         }
     }
