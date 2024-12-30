@@ -1,10 +1,11 @@
 {
-  "TheWitcherMod:CampfireRelic": {
-    "NAME": "Campfire",
+  "TheWitcherMod:WolfSchoolMedallionRelic": {
+    "NAME": "Wolf School Medallion",
     "FLAVOR": "Only myths and fables do not know the limits of possibility.",
     "DESCRIPTIONS": [
-      "During the #yPreparation #yPhase, you can use #y1 more card.",
-      " NL NL Current Reputation: #y",
+      "During the #yPreparation #yPhase, you can use #b1 more card.",
+      " NL NL #yReputation: ",
+      " NL #yIntoxication: ",
       " "
     ]
   }

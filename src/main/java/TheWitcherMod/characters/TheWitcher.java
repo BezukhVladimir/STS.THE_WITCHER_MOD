@@ -2,7 +2,7 @@ package TheWitcherMod.characters;
 
 import TheWitcherMod.TheWitcherModMain;
 import TheWitcherMod.cards.*;
-import TheWitcherMod.relics.CampfireRelic;
+import TheWitcherMod.relics.WolfSchoolMedallionRelic;
 import basemod.abstracts.CustomPlayer;
 import basemod.animations.SpriterAnimation;
 import com.badlogic.gdx.graphics.Color;
@@ -126,7 +126,6 @@ public class TheWitcher extends CustomPlayer {
 
         retVal.add(Vigilance.ID);
         retVal.add(ArmorUp.ID);
-        retVal.add(MakingABomb.ID);
 
         return retVal;
     }
@@ -134,9 +133,9 @@ public class TheWitcher extends CustomPlayer {
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
 
-        retVal.add(CampfireRelic.ID);
+        retVal.add(WolfSchoolMedallionRelic.ID);
 
-        UnlockTracker.markRelicAsSeen(CampfireRelic.ID);
+        UnlockTracker.markRelicAsSeen(WolfSchoolMedallionRelic.ID);
 
         return retVal;
     }
