@@ -1,10 +1,18 @@
 [
   {
+    "PROPER_NAME": "Preparation Phase",
+    "NAMES": [
+      "preparation phase",
+      "preparation_phase"
+    ],
+    "DESCRIPTION": "The Preparation Phase occurs before combat begins, allowing you to prepare for battle."
+  },
+  {
     "PROPER_NAME": "Preparation",
     "NAMES": [
       "preparation"
     ],
-    "DESCRIPTION": "The Preparation card can't be played in combat. A Preparation card may only be used at the beginning of each combat in the Preparation Phase."
+    "DESCRIPTION": "The Preparation card can't be played during combat. It may only be used at the start of combat in the Preparation Phase."
   },
   {
     "PROPER_NAME": "Bomb",
@@ -14,13 +22,40 @@
     "DESCRIPTION": "Once used, the Bomb card is removed from combat and your deck."
   },
   {
+    "PROPER_NAME": "Potion",
+    "NAMES": [
+      "potion"
+    ],
+    "DESCRIPTION": "Once used, the Potion card is removed until end of combat."
+  },
+  {
+    "PROPER_NAME": "Intoxication",
+    "NAMES": [
+      "intoxication"
+    ],
+    "DESCRIPTION": "Intoxication affects various mechanics. NL NL If Intoxication exceeds your Max HP, the excess causes you to lose HP at the start of turn. NL NL Intoxication changes at the start of each turn. NL NL Intoxication cannot be below #b0."
+  },
+  {
+    "PROPER_NAME": "Reputation",
+    "NAMES": [
+      "reputation"
+    ],
+    "DESCRIPTION": "Reputation affects various mechanics. NL NL Reputation can be from #r-100 to #b100. NL NL Starting Reputation equals Ascension level."
+  },
+  {
     "PROPER_NAME": "Target of the Contract [thewitchermod:TargetOfTheContractIcon]",
     "NAMES": [
       "target of the contract",
-      "target_of_the_contract",
-      "Target_of_the_Contract",
-      "[thewitchermod:TargetOfTheContract]"
+      "target_of_the_contract"
     ],
-    "DESCRIPTION": "Kill the Target of the Contract. NL NL Gain #y1 Gold for every #y10 Max HP of the enemy. NL NL Gain #y1 Gold for every #y10 of your Reputation. NL NL Gain #y1 / #y3 / #y5 Reputation for #yNormal / #yElite / #yBoss respectively. NL NL If the enemy that became the Target of the Contract was not killed (example, Target of the Contract has ended or negated by an Artifact or Life Link, you or the enemy has escaped from the combat), you lose #r5 Reputation. NL NL If the enemy that became the Target of the Contract is a minion, you will gain nothing (and lose nothing)."
+    "DESCRIPTION": "Kill the Target of the Contract. NL NL Gain #b1 Gold for every #y10 Max HP of the enemy. NL NL Gain #b1 Gold for every #y10 of your #yReputation. NL NL Gain #b1 / #b3 / #b5 #yReputation for #yNormal / #yElite / #yBoss respectively. NL NL If the enemy that became the Target of the Contract was not killed (example, Target of the Contract has ended or negated by an Artifact or Life Link, you or the enemy has escaped from the combat), you lose #r5 Reputation. NL NL If the enemy that became the Target of the Contract is a minion, you will gain nothing (and lose nothing)."
+  },
+  {
+    "PROPER_NAME": "Plated Armor",
+    "NAMES": [
+      "plated armor",
+      "plated_armor"
+    ],
+    "DESCRIPTION": "At the end of your turn, gain X #yBlock. Receiving unblocked attack damage reduces #yPlated #yArmor by #r1."
   }
 ]
